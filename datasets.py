@@ -22,13 +22,11 @@ def load_datasets(path, train=True):
     
     # Apply a few transform such as resizing, color jittering and normalization with mean and std
     transform = transforms.Compose([
-            transforms.Resize(img_size),
-            transforms.ColorJitter(.1, 1, .75, 0),    
+            transforms.Resize(img_size),   
             transforms.ToTensor(),
-            transforms.Lambda(lambda x : x.expand([3, -1, -1])),
-            transforms.Normalize(mean=(0.1307, 0.1307, 0.1307), std=(0.3081 ,0.3081 ,0.3081))
+            transforms.Normalize(mean=(0.45, 0.45, 0.45), std=(0.199,0.199, 0.199))
     ])
-    mnist = datasets.MNIST(path, train=train, download=True, transform=transform)
+    mnist = datasets.SVHN(path, split='test', download=True, transform=transform)
     
     # Apply a few transform such as resizing and normalization with mean and std
     transform = transforms.Compose([
